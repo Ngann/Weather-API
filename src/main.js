@@ -2,9 +2,8 @@ import './styles.css';
 import $ from 'jquery';
 import 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
-// import { Dino } from './../src/dino.js';
+import { Dino } from './../src/dino.js';
 import { WeatherService } from './../src/weather-service.js';
-
 
 $(document).ready(function() {
   $('#weatherLocation').click(function() {
@@ -25,4 +24,15 @@ $(document).ready(function() {
     });
   });
 
+
+///// DINO ///
+  let dinoServices = new Dino();
+  let promise = dinoServices.getDinoLorem();
+
+  promise.then(function(response) {
+    let dinoBody = JSON.parse(response);
+    // $('#some-awesome-container').text(dinoBody);
+  }, function(error) {
+    $('.showErrors').text(`There was an error processing your request: ${error.message}`);
+  });
 });
