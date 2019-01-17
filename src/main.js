@@ -8,15 +8,34 @@ import { Bike } from './../src/bike.js';
 
 $(document).ready(function() {
   //BIKE INDEX //
-  let bikeServices = new Bike();
-  let promise = bikeServices.getBikeInfor();
+  // let bikeServices = new Bike();
+  // let promise = bikeServices.getBikeInfor();
+  //
+  // promise.then(function(response) {
+  //   let bikeBody = JSON.parse(response);
+  //    $('.bikeName').text(`Bike brand ${bikeBody.manufacturer.name}`);
+  //    $('.bikeNumber').text(`Bike Id ${bikeBody.manufacturer.id}`);
+  // }, function(error) {
+  //   $('.bikeErrors').text(`There was an error processing your request: ${error.message}`);
+  // });
 
-  promise.then(function(response) {
-    let bikeBody = JSON.parse(response);
-     $('.bikeName').text(`Bike brand ${bikeBody.manufacturer.name}`);
-     $('.bikeId').text(`Bike Id ${bikeBody.manufacturer.id}`);
-  }, function(error) {
-    $('.bikeErrors').text(`There was an error processing your request: ${error.message}`);
+//Bike location
+  $('#bikeLocation').click(function() {
+    let bike = $('#bikeId').val();
+    $('#bikeId').val("");
+    console.log(bike)
+
+
+    let bikeService = new Bike();  // create instance of WeatherService class
+    let promise = bikeService.getBikeInfor(bike);  // call the instance method and pass in user input
+
+    promise.then(function(response) {
+      let body = JSON.parse(response);
+      $('.bikeName').text(`Bike brand ${body.manufacturer.name}`);
+      $('.bikeNumber').text(`Bike Id ${body.manufacturer.id}`);
+    }, function(error) {
+      $('.bikeErrors').text(`There was an error processing your request: ${error.message}`);
+    });
   });
 
   /// Weather Services ///
